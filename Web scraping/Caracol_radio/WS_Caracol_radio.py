@@ -79,6 +79,7 @@ for page in pages:
                     
                 noodles = soup(html2.content,'html5lib')
                 
+                ## Modificando fecha
                 date_0 =  noodles.find("div", class_="cnt-metas")
                 date_1 =  date_0.find_all("span")
                 date_1 =  date_0.find_all("span") [len(date_1) - 1]
@@ -146,3 +147,8 @@ for page in pages:
                                   'Link':links})
         print("There were no more articles found with your keyword")
         break
+    
+print('¿Guardar base en excel? ("si o no")')
+respuesta = input()
+if respuesta == "si":
+    test_df.to_excel("Caracol_radio.xlsx")
