@@ -98,7 +98,7 @@ for page in pages:
                 
                 content = noodles.find('div', attrs = {'class':'field field-name-body'})
                 
-                if content == None:
+                if not content:
                     ## Modificando fecha
                     date =  noodles.find_all("div", class_="field__item even")
                     date2 = date
