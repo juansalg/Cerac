@@ -1,0 +1,6 @@
+
+
+Hola equipo. Acabo de terminar el código para Publimetro. En este caso usé una nueva forma de hacer el web scraping gracias a una sugerencia de David:
+buscar los resultados directamente desde Google. Hacerlo de esta forma es muchísimo más eficiente, pero tenía cierta complejidad.
+
+Ya con esto quedarían listos los códigos para todos los medios impresos que habíamos acordado, y restaría descargar las noticias para cada periodico.

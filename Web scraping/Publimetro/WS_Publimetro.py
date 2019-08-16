@@ -6,7 +6,7 @@ Created on Wed Jul 31 20:00:34 2019
 """
 
 from bs4 import BeautifulSoup as soup
-from requests import get
+import requests
 import pandas as pd
 import time
 import re
@@ -15,21 +15,36 @@ from random import randint
 
 ## %reset
 
-keyword = input("What is the keyword you wanna look up?(e.g 'paro' o 'huelga de maestros')\n")
+# keyword = input("What is the keyword you wanna look up?(e.g 'paro' o 'huelga de maestros')\n")
 
 
-titles = []
-links = []
-contents = []
-dates = []
+#titles = []
+#links = []
+#contents = []
+#dates = []
 
-
+"""
 start_time = time.time()
 requests = 0
 count = 0
 pages = [str(i) for i in range(32,500)]
+"""
 
+url = "https://caracol.com.co/tag/homicidios/a/1"
+html = get(url)
+htmlsoup = soup(html.content,'html5lib')
+links = htmlsoup.find_all('div', id = "navcnt")
 
+headers = requests.utils.default_headers()
+headers.update({'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0',})
+
+url2 = "https://www.google.com/search?tbs=cdr%3A1%2Ccd_min%3A2010%2Ccd_max%3A2018&ei=QNZWXd_XDo2W5wK7ybfABg&q=site%3Apublimetro.co%2Fco%2F+homicidio&oq=site%3Apublimetro.co%2Fco%2F+homicidio&gs_l=psy-ab.3...4387.4535..4806...0.0..0.122.213.1j1......0....1..gws-wiz.EWY8RWLdgUo&ved=0ahUKEwjf99a15IfkAhUNy1kKHbvkDWgQ4dUDCAo&uact=5"
+html2 = get(url2)
+r = requests.get(url2, headers)
+htmlsoup2 = soup(html2.content,'html5lib')
+links2 = htmlsoup2.find_all('div', id = "navcnt"
+
+"""
 for page in pages:
 
     url = "https://noticias.caracoltv.com/busqueda/" + keyword + "?page=" + page
