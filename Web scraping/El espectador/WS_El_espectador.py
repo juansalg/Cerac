@@ -26,7 +26,7 @@ years = range(inicio,fin+1)
 
 start_time = time.time()
 requests = 0
-pages = [str(i) for i in range(1,5)]
+pages = [str(i) for i in range(1,5500)]
 count = 0
 
 for keyword in keywords:

@@ -19,12 +19,16 @@ import smtplib, ssl
 # 'for' para cambiar el año, desde 'inicio' a 'fin',
 # y buscar 'num_art_buscar' resultados de google
 
-num_art_buscar = 50
-inicio = 2016
+num_art_buscar = 100
+inicio = 2010
 fin = 2018
 count = 0
 start_time = time.time()
-palabras = ['homic', 'muerte', 'asesinato']
+palabras = ['Seguridad','Homicidio','Hurto','Vandalismo','Violencia sexual','Lesiones personales',
+            'Policía de Bogotá','Inseguridad','Percepción de seguridad','Percepción de inseguridad',
+            'Seguridad ciudadana','Orden público','Violencia','Asesinato','Matar','Robo',
+            'Atraco','Fleteo','Orden público','Disturbio','Riña','Abuso sexual','Acoso sexual',
+            'Acoso infantil','Golpiza','Linchamiento','Policía Nacional','Dar de baja']
 
 # Creacion de vectores para llenar con la informacion del scraping
 titles_tot = []
