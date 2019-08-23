@@ -51,7 +51,8 @@ for pal in palabras:
         pal_buscada = []
         loop_anio = []
         
-        a_buscar = "site:https://www.publimetro.co/co/ " + pal + " before:" + str(year) + \
+        year = 2018
+        a_buscar = "site:https://www.eltiempo.com/ homicidio before:" + str(year) + \
         "-12-31 after:" + str(year) + "-1-01"
         # Busqueda urls en google search
         for url in search(a_buscar, stop = num_art_buscar):
@@ -138,6 +139,7 @@ for pal in palabras:
                 if not texto:
                     texto = '**Especial**'
                     
+                    
                 # Llenar vectores de variables
                 
                 titles.append(title)
@@ -152,6 +154,7 @@ for pal in palabras:
                               'Link':links,
                               'Palabra buscada':pal_buscada,
                               'Año buscado':loop_anio})
+            
             except:
                 link_err.append(url)
 
@@ -176,7 +179,7 @@ for pal in palabras:
         
 
 # Guardar una base para todas las palabras        
-test_df_tot.to_excel("Publimetro_total.xlsx")
+test_df_tot.to_excel("Publimetro_" + str(inicio) + '_' + str(fin) + "_total.xlsx")
 errores.to_excel("Publimetro_errores.xlsx")
 
 elapsed_time = time.time() - start_time
@@ -192,7 +195,7 @@ print('\nTotal articulos: {} \nNumero de años: {} \nArticulos por año: {} \nTo
 port = 465  # For SSL
 smtp_server = "smtp.gmail.com"
 sender_email = "python.development.cerac@gmail.com"  # Enter your address
-receiver_email = "helena.hernandez@cerac.org.co"  # Enter receiver address
+receiver_email = "juan.salgado@cerac.org.co"  # Enter receiver address
 password = 'Cerac_2019'
 message = """Subject: Finalizo WS de Publimetro
 
