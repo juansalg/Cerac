@@ -10,19 +10,15 @@ from random import randint
 
 ## %reset
 
-keywords = []
-mas_palabras = "si"
-while mas_palabras == "si":
-    i = 0
-    keywords.append(input("Ingrese palabra a buscar\n"))
-    i += 1
-    mas_palabras = input("¿Seguir buscando palabras (si o no)\n")
+keywords = ['homicidios', 'muerte']
 
 
 titles = []
 links = []
 contents = []
 dates = []
+pal_buscada_tot  = []
+loop_page_tot = []
 
 
 start_time = time.time()
@@ -136,10 +132,14 @@ for keyword in keywords:
                 dates.append(date)
                 contents.append(texto)
                 links.append(link)
+                pal_buscada_tot.append(keyword)
+                loop_page_tot.append(page)
                 test_df=pd.DataFrame({'Titulo':titles,
                               'Fecha':dates,
                               'Contenido':contents,
-                              'Link':links})
+                              'Link':links,
+                              'Palabra buscada':pal_buscada_tot,
+                              'Pagina buscada':loop_page_tot})
                
         ## Este Else hace parte del if: len(articles) != 0. Significa que en el url [var] no se 
         ## encontraron secciones con la categoria: 'div', attrs = {'class':'titulo'}
@@ -147,11 +147,23 @@ for keyword in keywords:
                
         else:
             test_df=pd.DataFrame({'Titulo':titles,
-                                      'Fecha':dates,
-                                      'Contenido':contents,
-                                      'Link':links})
+                          'Fecha':dates,
+                          'Contenido':contents,
+                          'Link':links,
+                          'Palabra buscada':pal_buscada_tot,
+                          'Pagina buscada':loop_page_tot})
             print("There were no more articles found with your keyword")
             break
     
-    test_df.to_excel("Qhubo_" + keyword + ".xlsx")
+
+test_df.to_excel("Qhubo_total.xlsx")
+
+elapsed_time_2 = time.time() - start_time
+
+
+print('\nTotal articulos: {} \nNumero de paginas: {} \nArticulos por pagina: {} \nTotal time: {} min'
+      .format(len(links),
+              len(pages),
+              round(len(links)/len(pages), 3),
+              round(elapsed_time_2/60, 3)))
     

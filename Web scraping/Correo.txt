@@ -1,6 +1,11 @@
 
 
-Hola equipo. Acabo de terminar el código para Publimetro. En este caso usé una nueva forma de hacer el web scraping gracias a una sugerencia de David:
-buscar los resultados directamente desde Google. Hacerlo de esta forma es muchísimo más eficiente, pero tenía cierta complejidad.
+Hola equipo.
 
-Ya con esto quedarían listos los códigos para todos los medios impresos que habíamos acordado, y restaría descargar las noticias para cada periodico.
+Acabo de terminar de revisar todos los códigos y ya están funcionando al 100% la gran mayoría. Ya se pueden descargar las noticias de los 
+siguientes periodicos: El tiempo, El espectador, Publimetro y Qhubo. Con Revista Semana surgió un problema porque la página solo deja leer un 
+cierto número de artículos gratis para no suscriptores. Estoy trabajando en solucionar ese problema, para poder hacer el login desde Python.
+
+Un ejemplo de las bases de datos que arrojan los códigos las subí a la siguiente carpeta: https://drive.google.com/open?id=1acat3EM17hBEhrkD9hszD-55SP_gna9J
+
+Ya con esto se podría empezar a hacer el análisis de texto.
