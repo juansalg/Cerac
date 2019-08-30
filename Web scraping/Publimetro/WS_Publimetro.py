@@ -19,16 +19,22 @@ import smtplib, ssl
 # 'for' para cambiar el año, desde 'inicio' a 'fin',
 # y buscar 'num_art_buscar' resultados de google
 
-num_art_buscar = 100
+num_art_buscar = 150
 inicio = 2010
 fin = 2018
 count = 0
 start_time = time.time()
-palabras = ['Seguridad','Homicidio','Hurto','Vandalismo','Violencia sexual','Lesiones personales',
-            'Policía de Bogotá','Inseguridad','Percepción de seguridad','Percepción de inseguridad',
-            'Seguridad ciudadana','Orden público','Violencia','Asesinato','Matar','Robo',
-            'Atraco','Fleteo','Orden público','Disturbio','Riña','Abuso sexual','Acoso sexual',
-            'Acoso infantil','Golpiza','Linchamiento','Policía Nacional','Dar de baja']
+
+palabras = ['Seguridad bogotá','Homicidio bogotá','Hurto bogotá','Vandalismo bogotá',
+            'Policía de Bogotá','Inseguridad bogotá','Percepción de seguridad bogotá',
+            'Percepción de inseguridad bogotá','Seguridad ciudadana bogotá',
+            'Orden público bogotá','Violencia bogotá','Asesinato bogotá','Matar bogotá',
+            'Robo bogotá','Atraco bogotá','Fleteo bogotá','Orden público bogotá',
+            'Disturbio bogotá','Riña bogotá','Abuso sexual bogotá','Acoso sexual bogotá',
+         'Acoso infantil bogotá','Golpiza bogotá','Linchamiento bogotá',
+         'Policía Nacional bogotá','Dar de baja bogotá',
+         'Violencia sexual bogotá', 'Lesiones personales bogotá']
+
 
 # Creacion de vectores para llenar con la informacion del scraping
 titles_tot = []
@@ -58,10 +64,13 @@ for pal in palabras:
         a_buscar = "site:https://www.publimetro.co/co/ " + pal + " before:" + str(year) + \
         "-12-31 after:" + str(year) + "-1-01"
         # Busqueda urls en google search
-        for url in search(a_buscar, stop = num_art_buscar):
+            # Sleep para evitar el error: HTTPError: Too Many Requests
+        busqueda = search(a_buscar, stop = num_art_buscar,  pause = 3)
+            
+        for url in busqueda:
             # 'if' para eliminar duplicados respecto al url
             if url in urls_tot:
-                next
+                continue
             urls.append(url)
             urls_tot.append(url)
         
@@ -87,7 +96,7 @@ for pal in palabras:
                 time.sleep(randint(2,4))
                 requests += 1
                 elapsed_time_1 = time.time() - start_time
-                print('Articulo: {} de año {}; Total time: {} min'.format(requests, year, 
+                print('Articulo: {} de {}; Pal: {}; Total time: {} min'.format(requests, year, pal, 
                       round(elapsed_time_1/60, 3)))
                 print("")
                 clear_output(wait = True) 
@@ -196,7 +205,7 @@ print('\nTotal articulos: {} \nNumero de años: {} \nArticulos por año: {} \nTo
 port = 465  # For SSL
 smtp_server = "smtp.gmail.com"
 sender_email = "python.development.cerac@gmail.com"  # Enter your address
-receiver_email = "helena.hernandez@cerac.org.co"  # Enter receiver address
+receiver_email = "juan.salgado@cerac.org.co"  # Enter receiver address
 password = 'Cerac_2019'
 message = """Subject: Finalizo WS de Publimetro
 

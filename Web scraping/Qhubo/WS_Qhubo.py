@@ -11,11 +11,15 @@ import smtplib, ssl
 
 ## %reset
 
-keywords = ['Seguridad','Homicidio','Hurto','Vandalismo','Violencia sexual','Lesiones personales',
-            'Policía de Bogotá','Inseguridad','Percepción de seguridad','Percepción de inseguridad',
-            'Seguridad ciudadana','Orden público','Violencia','Asesinato','Matar','Robo',
-            'Atraco','Fleteo','Orden público','Disturbio','Riña','Abuso sexual','Acoso sexual',
-            'Acoso infantil','Golpiza','Linchamiento','Policía Nacional','Dar de baja']
+keywords = ['Seguridad bogotá','Homicidio bogotá','Hurto bogotá','Vandalismo bogotá',
+            'Policía de Bogotá','Inseguridad bogotá','Percepción de seguridad bogotá',
+            'Percepción de inseguridad bogotá','Seguridad ciudadana bogotá',
+            'Orden público bogotá','Violencia bogotá','Asesinato bogotá','Matar bogotá',
+            'Robo bogotá','Atraco bogotá','Fleteo bogotá','Orden público bogotá',
+            'Disturbio bogotá','Riña bogotá','Abuso sexual bogotá','Acoso sexual bogotá',
+         'Acoso infantil bogotá','Golpiza bogotá','Linchamiento bogotá',
+         'Policía Nacional bogotá','Dar de baja bogotá',
+         'Violencia sexual bogotá', 'Lesiones personales bogotá']
 
 
 titles = []
@@ -33,7 +37,7 @@ years = range(inicio,fin+1)
 start_time = time.time()
 requests = 0
 count = 0
-pages = [str(i) for i in range(0,5500)]
+pages = [str(i) for i in range(1,5500)]
 
 for keyword in keywords:
     
@@ -45,8 +49,9 @@ for keyword in keywords:
         time.sleep(randint(2,4))
         requests += 1
         elapsed_time = time.time() - start_time
-        print('Request: {}; Total time: {} min; Frequency: {} requests/s'.format(requests,
-              round(elapsed_time/60, 3), round(requests/elapsed_time, 3)))
+        print("")
+        print('Palabra: {}; Página: {}; Tiempo: {} min'.format(keyword, page,
+                                                                  round(elapsed_time/60,3)))
         print("")
         clear_output(wait = True)
        
@@ -57,13 +62,13 @@ for keyword in keywords:
         articles = htmlsoup.find_all('div', attrs = {'class':'titulo'})
        
        
-        if len(articles) != 0:
+        if articles:
                
             for oneArticle in articles:
                
                 link = oneArticle.a['href']
-                #if 'bogota' not in link:
-                 #   continue
+                if link in links:
+                    continue
                
                 title = oneArticle.a.text
                 content = ''
@@ -110,6 +115,8 @@ for keyword in keywords:
                     if fecha_en_rango == False:
                         continue                    
                     
+                    ## No se descartan palabras que no tengan 'bogot' porque en la mayoría de
+                    ## artículos no sale 'bogot', asi sean de bogota.
                    
                     content = noodles.find_all(attrs = {'style':'text-align: justify;'})
                     texto = ''
@@ -157,12 +164,7 @@ for keyword in keywords:
                     links.append(link)
                     pal_buscada_tot.append(keyword)
                     loop_page_tot.append(page)
-                    test_df=pd.DataFrame({'Titulo':titles,
-                                  'Fecha':dates,
-                                  'Contenido':contents,
-                                  'Link':links,
-                                  'Palabra buscada':pal_buscada_tot,
-                                  'Pagina buscada':loop_page_tot})
+
 
                 except:
                     link_err.append(link)  
@@ -172,16 +174,17 @@ for keyword in keywords:
             ## Se vuelve a llenar el DF con los vectores llenos del contenido de los articulos
                
         else:
-            test_df=pd.DataFrame({'Titulo':titles,
-                          'Fecha':dates,
-                          'Contenido':contents,
-                          'Link':links,
-                          'Palabra buscada':pal_buscada_tot,
-                          'Pagina buscada':loop_page_tot})
             print("There were no more articles found with your keyword")
             break
 
 
+test_df=pd.DataFrame({'Titulo':titles,
+          'Fecha':dates,
+          'Contenido':contents,
+          'Link':links,
+          'Palabra buscada':pal_buscada_tot,
+          'Pagina buscada':loop_page_tot})
+    
 errores = pd.DataFrame(
                 {'Link error':link_err}
                 )
@@ -204,14 +207,17 @@ print('\nTotal articulos: {} \nNumero de paginas: {} \nArticulos por pagina: {} 
 port = 465  # For SSL
 smtp_server = "smtp.gmail.com"
 sender_email = "python.development.cerac@gmail.com"  # Enter your address
-receiver_email = "helena.hernandez@cerac.org.co"  # Enter receiver address
+receiver_email = "juan.salgado@cerac.org.co"  # Enter receiver address
 password = 'Cerac_2019'
-message = """Subject: Finalizo WS de Qhubo
+
+message = """Subject: Finalizo WS de El espectador
 
 
 Tiempo total: """ + str(round(elapsed_time_2/60, 3)) + "min" \
 \
 """\n\nTotal articulos: """ + str(len(links)) + \
+\
+"""\n\nTotal paginas: """ + str(requests) + \
 \
 """\n\nTotal errores: """ + str(len(errores))
 
