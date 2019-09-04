@@ -19,7 +19,7 @@ import smtplib, ssl
 # 'for' para cambiar el año, desde 'inicio' a 'fin',
 # y buscar 'num_art_buscar' resultados de google
 
-num_art_buscar = 150
+num_art_buscar = 1
 inicio = 2010
 fin = 2018
 count = 0
@@ -189,8 +189,8 @@ for pal in palabras:
         
 
 # Guardar una base para todas las palabras        
-test_df_tot.to_excel("Publimetro_total.xlsx")
-errores.to_excel("Publimetro_errores.xlsx")
+test_df_tot.to_excel("Publimetro_total_v1.xlsx")
+errores.to_excel("Publimetro_errores_v1.xlsx")
 
 elapsed_time = time.time() - start_time
 
